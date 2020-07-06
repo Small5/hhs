@@ -1,0 +1,25 @@
+[
+	{
+		"id": "41",
+		"fldWatershedCode": "AKH13002",
+		"fldCountyCode": "620702",
+		"fldDate": "2000",
+		"fldFarmArea": 686200.0,
+		"fldWetlandArea": 0.0,
+		"fldForestArea": 22793.6,
+		"fldGrassArea": 180327.0,
+		"fldHuYangArea": 0.0,
+		"idfldWaterArea": 0.0
+	}, {
+		"id": "42",
+		"fldWatershedCode": "AKH13002",
+		"fldCountyCode": "620702",
+		"fldDate": "2011",
+		"fldFarmArea": 683300.0,
+		"fldWetlandArea": 0.0,
+		"fldForestArea": 59708.5,
+		"fldGrassArea": 191902.0,
+		"fldHuYangArea": 0.0,
+		"idfldWaterArea": 0.0
+	}
+]

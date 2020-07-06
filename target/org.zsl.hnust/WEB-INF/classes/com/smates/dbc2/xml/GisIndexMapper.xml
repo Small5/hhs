@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.smates.dbc2.mapper.GisIndexDao">
+
+	<!-- 删除所有指标数据 -->
+	<delete id="deleteAllIndex">
+		delete from tctestdata
+	</delete>
+
+	<!-- 插入新的指标数据 -->
+	<insert id="InsertIndex" parameterType="GisIndex"
+		useGeneratedKeys="true" keyProperty="oid">
+		INSERT INTO
+		tctestdata(oid,countyname,indextype,year,value)
+		VALUES(#{oid},#{countyname},#{indextype},#{year},#{value})
+	</insert>
+
+</mapper>

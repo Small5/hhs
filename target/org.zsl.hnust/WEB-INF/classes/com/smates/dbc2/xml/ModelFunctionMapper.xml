@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.smates.dbc2.mapper.ModelFunctionDao">
+	<select id="getFunctions" resultType="String">
+		select "functionTxt" from
+		"customizedModelFunction" where
+		 "projectId"= #{0} and "modelName"= #{1} 
+	</select>
+	<select id="getDefaultFunctions" resultType="String">
+		select "functionTxt" from
+		"defaultModelFunction" where
+		 "watershedId"= #{0} and "modelName"= #{1} 
+	</select>
+	<select id="getAllClimatePara" resultType="com.smates.dbc2.po.ClimatePara">
+		select * from
+		"a_tblClimateScePara" where
+		 "projectId"= #{0} order by "countyId"
+	</select>
+	<select id="getAllLandPara" resultType="com.smates.dbc2.po.LandPara">
+	select "WaterArea","LandForestR","LandGrassR","LandBareR","LandCityR","LandFarmR","CPWhR","CPCornR","CPOilR","CPVegR","CPFTR","CPCotR","countyId" from
+	"a_tblLanduseScePara" where
+	 "projectId"= #{0}
+	</select>
+
+<select id="getAllEcoPara" resultType="com.smates.dbc2.po.EcoPara">
+	select "IARArg","IARInd","IARSer","countyId","popolicy","negak" from
+	"a_tblSocioEconomyScePara" where
+	 "projectId"= #{0}
+	</select>
+	<select id="getAllWaterPara" resultType="com.smates.dbc2.po.WaterPara">
+	select * from
+	"a_tbWaterManScePara" where
+	 "projectId"= #{0}
+	</select>
+	<select id="getClimateParaByCounty" resultType="com.smates.dbc2.po.ClimatePara">
+		select "PreChangeR","TempChange" from
+		"a_tblClimateScePara" where
+		 "projectId"= #{0} and "countyId"=#{1} order by "countyId"
+	</select>
+	<select id="getLandParaByCounty" resultType="com.smates.dbc2.po.LandPara">
+	select "WaterArea","LandForestR","LandGrassR","LandBareR","LandCityR","LandFarmR","CPWhR","CPCornR","CPOilR","CPVegR","CPFTR","CPCotR","countyId" from
+	"a_tblLanduseScePara" where
+	 "projectId"= #{0} and "countyId"=#{1}
+	</select>
+
+<select id="getEcoParaByCounty" resultType="com.smates.dbc2.po.EcoPara">
+	select "IARArg","IARInd","IARSer" from
+	"a_tblSocioEconomyScePara" where
+	 "projectId"= #{0} and "countyId"=#{1}
+	</select>
+	<select id="getWaterParaByCounty" resultType="com.smates.dbc2.po.WaterPara">
+	select * from
+	"a_tbWaterManScePara" where
+	 "projectId"= #{0} and "countyId"=#{1}
+	</select>
+	<select id="getIndicatorInfo" resultType="com.smates.dbc2.po.IndicatorInfo">
+	select "index","indiVariable","indiName","direction","functionTxt","goal" from
+	"defaultIndicator" where
+	 "watershedId"= #{0} order by "index" 
+	</select>
+	<select id="getIndicatorPara" resultType="com.smates.dbc2.po.IndicatorPara">
+	select * from
+	"indiParameter_copy" where
+	 "watershedId"= #{0}
+	</select>
+	<select id="getIndicatorsbyProjectId" resultType="com.smates.dbc2.po.Indicators">
+	select * from
+	"indicatorOutput" where
+	 "projectId"= #{0} order by "countyId","year"
+	</select>
+	<select id="getareaCrop" resultType="String">
+	select "areaCrop" from
+	"indicatorOutput" where
+	 "projectId"= #{0} LIMIT 1
+	</select>
+	<select id="getNum" resultType="String">
+	select "count"(*) from "testManyOutput" where
+	 "projectId"= #{0}
+	</select>
+	<select id="getTestFlag" resultType="String">
+	select flag from
+	"testFlag"
+	</select>
+	<insert id="insertModelOutput" parameterType="com.smates.dbc2.po.ModelOutput">
+		insert into "modelOutput" 
+		VALUES(#{projectId},#{year},#{countyId},#{FlowYLX},
+		#{FlowOther},#{SurSup},#{GWSup},#{CropET},#{WetlandArea},
+		#{ArgValueR},#{IndValueR},#{SerValueR},#{LandFarmR},#{LandCIR},#{LandSerR},
+		#{WaterPR},#{EmpR},#{SurWDR},#{GWWDR},#{ArgValue},#{IndValue},#{SerValue},#{LandFarm},#{LandCI},#{LandSer},
+		#{WaterP},#{Emp},#{SurWD},#{GWWD})
+	</insert>
+	
+	<insert id="insertIndicatorOutput" parameterType="com.smates.dbc2.po.Indicators">
+		insert into "indicatorOutput" 
+		VALUES(#{projectId},#{countyId},#{year},#{waterProductivity},
+		#{waterPressure},#{safeDrinkingWaterR},#{iwrmR},#{transboundaryAvailability},#{areaWetland},
+		#{waterDemandEco},#{groundwaterMining},#{waterUseEco},#{forestCoverR},#{forestSustainableR},
+		#{mountainGreenCoverR},#{gdpPerCapita},#{gdpPerCapitaEmployed},#{youthEmpR},#{gdpTourismR},
+		#{landPopuR},#{urbanR},#{avgWelfare},#{waterProductivityAgri},
+		#{waterUseEffiAgri},#{agriOutputPerHectare},#{areaCrop},#{pop})
+	</insert>
+	<insert id="insertScores" parameterType="com.smates.dbc2.po.AssessResult">
+		insert into "tcthreeindex_copy" 
+		VALUES(#{projectId},#{countyId},#{year},#{totalscore},
+		#{goal1score},#{goal2score},#{goal3score},#{totalindex},
+		#{goal1index},#{goal2index},#{goal3index})
+	</insert>
+	
+	<insert id="insertIndicatorWeight" parameterType="com.smates.dbc2.po.IndicatorWeight">
+		insert into "indicatorWeight" 
+		VALUES(#{projectId},#{countyId},#{indicatorindex},#{weight})
+	</insert>
+	
+	<insert id="insertTestManyOutput" parameterType="com.smates.dbc2.po.TestManyOutput">
+		insert into "testManyOutput" 
+		VALUES(#{projectId},#{tempset},#{preset},#{cultiarearset},#{cultitechrset},#{downstreamset},
+		#{year},#{countyId},#{FlowYLX},#{FlowOther},#{SurSup},#{GWSup},#{CropET},
+		#{ArgValueR},#{IndValueR},#{SerValueR},#{LandFarmR},#{LandCIR},#{LandSerR},
+		#{WaterPR},#{EmpR},#{SurWDR},#{GWWDR},
+		#{waterProductivity},
+		#{waterPressure},#{safeDrinkingWaterR},#{groundwaterMining},#{mountainGreenCoverR},
+		#{gdpPerCapita},#{gdpPerCapitaEmployed},
+		#{urbanR},#{waterUseEffiAgri},#{waterProductivityAgri},#{areaCrop},
+		#{totalscore},#{goal1score},#{goal2score},#{goal3score},#{totalindex},
+		#{goal1index},#{goal2index},#{goal3index},#{ArgValue},#{IndValue},#{SerValue},#{LandFarm},#{LandCI},#{LandSer},
+		#{WaterP},#{Emp},#{SurWD},#{GWWD},#{forestcoverR},#{barecoverR})
+	</insert>
+	<update id="setTestFlag" parameterType="String">
+		UPDATE
+		"testFlag"
+		set "flag" = #{0},"message"=#{1}
+	</update>
+	<delete id="deleteTestManyOutput">
+		delete from "testManyOutput"
+		where "projectId"=#{0};
+	</delete>
+	<delete id="deleteModelOutput">
+		delete from "modelOutput"
+		where "projectId"=#{0};
+	</delete>
+	<delete id="deleteIndicatorOutputbyProjectId">
+		delete from "indicatorOutput"
+		where "projectId"=#{0};
+	</delete>
+	<delete id="deleteAssessResultbyProjectId">
+		delete from "tcthreeindex_copy"
+		where "projectId"=#{0};
+	</delete>
+	<delete id="deleteIndicatorWeithtbyProjectId">
+		delete from "indicatorWeight"
+		where "projectId"=#{0};
+	</delete>
+	
+</mapper>

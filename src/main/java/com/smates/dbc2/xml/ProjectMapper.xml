@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smates.dbc2.mapper.ProjectDao">
+
+	<!-- 新增一个项目记录 -->
+	<insert id="addProject" parameterType="project">
+		INSERT INTO
+		a_project
+		VALUES(#{username},#{id},#{name},#{watershedId},#{createTime},#{describe},#{baseYear},#{goalYear},#{step})
+	</insert>
+	
+	<update id="updateProject">
+		UPDATE a_project SET name = #{name},"watershedId"=#{watershedId},"createTime"=#{createTime},describe = #{describe},"baseYear"=#{baseYear},
+		"goalYear"=#{goalYear},step=#{step}
+		WHERE username = #{username} AND id = #{id};
+	</update>
+	
+	<!-- 统计符合条件的项目总数 -->
+	<select id="getProjectSumByName" parameterType="com.smates.dbc2.vo.UsernameAndName" resultType="int">
+		SELECT "count"(*) 
+		FROM (select * from a_project 
+			WHERE
+			a_project."name" LIKE
+			'%${name}%') 
+		AS b_project 
+		WHERE b_project."username" = #{username}
+	</select>
+
+	<!-- 根据项目名称查找项目 -->
+	<select id="getProjectByName" parameterType="com.smates.dbc2.vo.ProjectParaVo"
+		resultType="project">
+		SELECT
+		b_project."id",
+		b_project."name",
+		b_project."watershedId",
+		b_project."createTime",
+		b_project."describe",
+		b_project."baseYear",
+		b_project."goalYear",
+		b_project."step"
+		FROM(
+			SELECT
+			*
+			from a_project
+			where a_project."name" like
+			'%${name}%'
+		) AS b_project
+		WHERE b_project."username"=#{username}
+		LIMIT #{rows} OFFSET #{startNum}
+	</select>
+	<!-- 查找用户名下的流域信息 -->
+	<select id="getProjectByUser" parameterType="string" resultType="Project">
+		SELECT * FROM "a_project" where username = #{username}
+	</select>
+	<!-- 根据id删除一个项目记录 -->
+	<delete id="deleteProject" parameterType="string">
+		DELETE FROM
+		a_project
+		where a_project."username" = #{username} AND a_project."id" = #{id}
+	</delete>
+
+	<!-- 根据id查找项目信息 -->
+	<select id="getProjectByUsernameAndId" parameterType="String" resultType="Project">
+		SELECT * FROM "a_project" where a_project."username" = #{username} AND a_project."id" = #{id}
+	</select>
+</mapper>

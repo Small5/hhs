@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smates.dbc2.mapper.Jump2resultDao">
+	
+	<!-- 删除相关代理模型 -->
+	<delete id="deletecustomizedModelFunction" parameterType="String">
+		delete from "customizedModelFunction" where "customizedModelFunction"."projectID" = #{value}
+	</delete>
+	
+	<!-- 添加上游代理模型 -->
+	<insert id="addUpStream" parameterType="UpStream">
+		INSERT
+		INTO "customizedModelFunction"
+		VALUES(#{projectID},#{modelName},#{functionTxt})
+	</insert>
+	
+	<!-- 删除气候情景数据表(月)数据  -->
+	<delete id="deleteTblClimateScenarioMonth" parameterType="String">
+		delete from "a_tblClimateScenarioMonth" where "a_tblClimateScenarioMonth"."username" = #{value}
+	</delete>
+
+	<!-- desc:存储产业与城市发展情景 -->
+	<insert id="addTblIndustyUrbanSce" parameterType="TblIndustyUrbanSce">
+		insert into
+		"a_tblIndustyUrbanSce"
+		VALUES(#{id},#{fldWatershedCode},#{fldCountyCode},#{fldDate},#{fldFarmPop},#{fldNonFarmPop},#{fldIndOutput},#{fldAgrOutput},#{fldSerOutput},#{fldTourOutput},#{fldTechProgRatio})
+	</insert>
+	
+	<!-- 查找所有城市发展情景 -->
+	<select id="getTblIndustyUrbanSce" resultType="TblIndustyUrbanSce">
+		SELECT * FROM "a_tblIndustyUrbanSce" ORDER BY "a_tblIndustyUrbanSce"."fldDate", "a_tblIndustyUrbanSce"."fldCountyCode"
+	</select>
+	<!-- 删除产业与城市发展情景   -->
+	<delete id="deleteTblIndustyUrbanSce" parameterType="String">
+		delete from "a_tblIndustyUrbanSce" where "a_tblIndustyUrbanSce"."fldWatershedCode" = #{value}
+	</delete>
+
+	<!-- desc:添加土地类型 -->
+	<insert id="addtblLandUseSce" parameterType="TblLandUseSce">
+		INSERT into
+		"a_tblLandUseSce"
+		VALUES(#{ id },#{username}, #{ fldWatershedCode }, #{
+		fldCountyCode }, #{ fldDate }, #{ fldFarmArea }, #{ fldWetlandArea },
+		#{ fldForestArea }, #{ fldGrassArea }, #{ fldHuYangArea }, #{
+		idfldWaterArea })
+	</insert>
+	
+	<!-- 删除土地类型   -->
+	<delete id="deletetblLandUseSce" parameterType="String">
+		delete from "a_tblLandUseSce" where "a_tblLandUseSce"."username" = #{value}
+	</delete>
+
+	<!-- desc:添加种植结构数据 -->
+	<insert id="addtblCropPattern" parameterType="TblCropPattern">
+		INSERT into
+		"a_tblCropPattern"
+		VALUES(
+		#{ id },
+		#{username},
+		#{ fldWatershedCode },
+		#{
+		fldCountyCode },
+		#{ fldDate },
+		#{ fldCropType },
+		#{ fldCropArea },
+		#{
+		fldIrrQuota },
+		#{ fldFertilizer },
+		#{ fldYieldPer },
+		#{ fldCropPrice })
+	</insert>
+	
+	<!-- 删除种植结构数据   -->
+	<delete id="deletetblCropPattern" parameterType="String">
+		delete from "a_tblCropPattern" where "a_tblCropPattern"."username" = #{value}
+	</delete>
+
+	<!-- desc:添加GDP发展数据 -->
+	<insert id="addtblSocioEconSce" parameterType="TblSocioEconSce">
+		INSERT into
+		"a_tblSocioEconSce"
+		VALUES(
+		#{ id },
+		#{username},
+		#{ fldWatershedCode },
+		#{
+		fldCountyCode },
+		#{ fldDate },
+		#{ fldPerCapGDP },
+		#{ fldGDP },
+		#{ fldPop
+		})
+	</insert>
+	
+	<!-- 删除GDP数据   -->
+	<delete id="deletetblSocioEconSce" parameterType="String">
+		delete from "a_tblSocioEconSce" where "a_tblSocioEconSce"."username" = #{value}
+	</delete>
+
+	<!-- desc:添加优惠政策 -->
+	<insert id="addtblPrefPolicy" parameterType="TblPrefPolicy">
+		INSERT into
+		"a_tblPrefPolicy"
+		VALUES(#{ id },#{username}, #{ fldWatershedCode }, #{
+		fldCountyCode }, #{ fldDate }, #{ fldPrefPolicyType }, #{ fldAllowance
+		})
+	</insert>
+	
+	<!-- 删除优惠政策   -->
+	<delete id="deletetblPrefPolicy" parameterType="String">
+		delete from "a_tblPrefPolicy" where "a_tblPrefPolicy"."username" = #{value}
+	</delete>
+
+	<!-- desc:添加水利工程数据 -->
+	<insert id="addtblHydrEngineering" parameterType="TblHydrEngineering">
+		INSERT into
+		"a_tblHydrEngineering"
+		VALUES(#{ id },
+		#{username},
+		#{ fldWatershedCode },
+		#{
+		fldCountyCode },
+		#{ fldDate },
+		#{ fldMainCannelLeng },
+		#{ fldMainCanWUE
+		},
+		#{ fldBranCannelLeng },
+		#{ fldBranCanWUE },
+		#{ fldDouLeng },
+		#{
+		fldDouWUE },
+		#{ fldNongLeng },
+		#{ fldNongWUE },
+		#{ fldMaoLeng },
+		#{
+		fldMaoWUE },
+		#{ fldSprinkingArea },
+		#{ fldSprWUE },
+		#{ fldDropIrrArea },
+		#{ fldDropWUE })
+	</insert>
+	
+	<!-- 删除优惠政策   -->
+	<delete id="deletetblHydrEngineering" parameterType="String">
+		delete from "a_tblHydrEngineering" where "a_tblHydrEngineering"."username" = #{value}
+	</delete>
+
+	<!-- desc:添加水资源面积数据 -->
+	<insert id="addtblWaterResManSce" parameterType="TblWaterResManSce">
+		INSERT into
+		"a_tblWaterResManSce"
+		VALUES(#{ id }, #{username}, #{ fldWatershedCode }, #{
+		fldCountyCode }, #{ fldDate }, #{ fldWaterManArea }, #{
+		fldTransCoopArea })
+	</insert>
+	
+	<!-- 删除水资源面积数据   -->
+	<delete id="deletetblWaterResManSce" parameterType="String">
+		delete from "a_tblWaterResManSce" where "a_tblWaterResManSce"."username" = #{value}
+	</delete>
+
+	<!-- desc:添加县区三产用水量数据 -->
+	<insert id="addtblWaterUseCounty" parameterType="TblWaterUseCounty">
+		INSERT into
+		"a_tblWaterUseCounty"
+		VALUES(#{ id },#{username}, #{ fldWatershedCode }, #{
+		fldCountyCode }, #{ fldDate }, #{ fldWaterUseAgr }, #{ fldWaterUseInd
+		},#{ fldWaterUseSer })
+	</insert>
+	
+	<!-- 删除县区三产用水量数据   -->
+	<delete id="deletetblWaterUseCounty" parameterType="String">
+		delete from "a_tblWaterUseCounty" where "a_tblWaterUseCounty"."username" = #{value}
+	</delete>
+	
+	<!-- 查找三产用水量 -->
+	<select id="gettblWaterUseCountyByYearAndCountryId" parameterType="com.smates.dbc2.vo.ProjectIdAndCountyId" resultType="tblWaterUseCounty">
+		select * from "a_tblWaterUseCounty" where "fldDate" = #{fldDate} and "fldCountyCode" = #{fldCountyCode}
+	</select>
+
+	<!-- desc:添加县区水权分配数据 -->
+	<insert id="addtblWaterRightCounty" parameterType="TblWaterRightCounty">
+		INSERT into
+		"a_tblWaterRightCounty"
+		VALUES(#{ id },#{username}, #{ fldWatershedCode }, #{
+		fldCityCode }, #{ fldCountyCode }, #{ fldDate }, #{ fldWaterRightRatio
+		})
+	</insert>
+	
+	<!-- 删除县区水权分配数据   -->
+	<delete id="deletetblWaterRightCounty" parameterType="String">
+		delete from "a_tblWaterRightCounty" where "a_tblWaterRightCounty"."username" = #{value}
+	</delete>
+
+	<!-- desc:添加流域中下游水分配数据 -->
+	<insert id="addtblMidDownWaterAllo" parameterType="TblMidDownWaterAllo">
+		INSERT into
+		"a_tblMidDownWaterAllo"
+		VALUES(#{ id },#{username}, #{ fldWatershedCode }, #{
+		fldDate }, #{ fldWaterUseMid }, #{ fldWaterUseDown })
+	</insert>
+	
+	<!-- 删除流域中下游水分配数据   -->
+	<delete id="deletetblMidDownWaterAllo" parameterType="String">
+		delete from "a_tblMidDownWaterAllo" where "a_tblMidDownWaterAllo"."username" = #{value}
+	</delete>
+
+	<!-- desc:添加县区用水量数据 -->
+	<insert id="addtblWaterAlloCounty" parameterType="TblWaterAlloCounty">
+		INSERT into
+		"a_tblWaterAlloCounty"
+		VALUES(#{ id },#{username},  #{ fldWatershedCode }, #{
+		fldCountyCode }, #{ fldDate }, #{ fldSurfaceWater }, #{ fldGroundWater
+		})
+	</insert>
+	
+	<!-- 删除县区用水量数据   -->
+	<delete id="deletetblWaterAlloCounty" parameterType="String">
+		delete from "a_tblWaterAlloCounty" where "a_tblWaterAlloCounty"."username" = #{value}
+	</delete>
+
+	<!-- desc:根据流域名称模糊查找流域数据 -->
+	<select id="getWatershedByName" parameterType="com.smates.dbc2.vo.WatershedParaVo"
+		resultType="Watershed">
+		SELECT
+		b_watershed."id",
+		b_watershed."name",
+		b_watershed."describe"
+		FROM (
+			SELECT * FROM
+			a_watershed
+			WHERE
+			a_watershed."name" LIKE
+			'%lab Maven Webapp%'
+			) AS b_watershed
+		WHERE b_watershed."username"=#{username}
+		LIMIT #{rows} OFFSET #{startNum}
+		
+	</select>
+
+	<!-- 删除一个流域信息 -->
+	<delete id="deleteWatershed" parameterType="UsernameAndWatershedId">
+		delete
+		from a_watershed
+		where a_watershed."username" = #{username} and a_watershed."id" = #{id}
+	</delete>
+
+	<!-- 查询流域总数 -->
+	<select id="getWatershedSum" parameterType="com.smates.dbc2.vo.UsernameAndName" resultType="int">
+		SELECT "count"(*) 
+		FROM (select * from a_watershed 
+			WHERE
+			a_watershed."name" LIKE
+			'%lab Maven Webapp%') 
+		AS b_watershed 
+		WHERE b_watershed."username" = #{username}
+		
+	</select>
+
+	<!-- desc:根据气候情景排放类型查找气候情景数据表（年） example sql: SELECT * FROM "a_tblClimateScenarioYear" 
+		WHERE "a_tblClimateScenarioYear"."fldCRPType" = '3' -->
+	<select id="geTblClimateScenarioYearsByfldCRPType"
+		parameterType="CRPTypeAndCountryId" resultType="TblClimateScenarioYear">
+		SELECT
+		*
+		FROM
+		"a_tblClimateScenarioYear"
+		WHERE
+		"a_tblClimateScenarioYear"."fldCRPType" = #{fldCRPType} 
+		and "a_tblClimateScenarioYear"."fldCountyCode" = #{countryId} 
+		and "a_tblClimateScenarioYear".username = #{username} 
+		ORDER BY
+		"fldDate"
+	</select>
+
+	<!-- desc:根据气候情景排放类型查找气候情景数据表（月） -->
+	<select id="getTblClimateScenarioMonthByfldCRPType"
+		parameterType="String" resultType="TblClimateScenarioYear">
+		SELECT
+		*
+		FROM
+		"a_tblClimateScenarioMonth"
+		WHERE
+		"a_tblClimateScenarioMonth"."fldCRPType" = #{value}
+	</select>
+
+	<!-- desc:根据县区代码查找产业与城市发展情景数据表 -->
+	<select id="getTblIndustyUrbanSceByfldCountyCode" parameterType="com.smates.dbc2.vo.UserAndLandUse"
+		resultType="TblIndustyUrbanSce">
+		SELECT
+		*
+		FROM
+		"a_tblIndustyUrbanSce"
+		WHERE
+		"a_tblIndustyUrbanSce"."fldCountyCode" = #{countryId}
+		and "a_tblIndustyUrbanSce".username = #{username}
+		ORDER BY
+		"fldDate"
+	</select>
+
+	<!-- desc:根据县区代码查找GDP发展数据表 -->
+	<select id="getTblSocioEconSceByfldCountyCode" parameterType="String"
+		resultType="TblSocioEconSce">
+		SELECT
+		*
+		FROM
+		"a_tblSocioEconSce"
+		WHERE
+		"a_tblSocioEconSce"."fldCountyCode" = #{value}
+		ORDER BY
+		"fldDate"
+	</select>
+	
+	<!-- 获取社会经济参数 -->
+	<select id="getTblSocioEconSce" resultType="TblSocioEconSce">
+		select * from "a_tblSocioEconSce" ORDER BY "a_tblSocioEconSce"."fldDate","a_tblSocioEconSce"."fldCountyCode"
+	</select>
+
+	<!-- desc:根据县区代码查找优惠政策表 -->
+	<select id="getTblPrefPolicyByfldCountyCode" parameterType="String"
+		resultType="TblPrefPolicy">
+		SELECT
+		*
+		FROM
+		"a_tblPrefPolicy"
+		WHERE
+		"a_tblPrefPolicy"."fldCountyCode" = #{value}
+		ORDER BY
+		"fldDate"
+	</select>
+
+	<!-- desc:根据县区代码查找水利工程数据表 -->
+	<select id="getTblHydrEngineeringByfldCountyCode" parameterType="com.smates.dbc2.vo.UserAndLandUse"
+		resultType="TblHydrEngineering">
+		SELECT
+		*
+		FROM
+		"a_tblHydrEngineering"
+		WHERE
+		"a_tblHydrEngineering"."fldCountyCode" = #{countryId}
+		and "a_tblHydrEngineering".username = #{username}
+		ORDER BY
+		"fldDate"
+	</select>
+
+	<!-- desc:根据县区代码查找土地类型数据表 -->
+	<select id="getTblLandUseSceByfldCountyCode" parameterType="com.smates.dbc2.vo.UserAndLandUse"
+		resultType="TblLandUseSce">
+		SELECT
+		*
+		FROM
+		"a_tblLandUseSce"
+		WHERE
+		"a_tblLandUseSce"."fldCountyCode" = #{countryId}
+		and "a_tblLandUseSce".username = #{username}
+		ORDER BY
+		"fldDate"
+	</select>
+
+	<!-- desc:根据县区代码查找种植结构数据表 -->
+	<select id="getTblCropPatternByfldCountyCode" parameterType="String"
+		resultType="TblCropPattern">
+		SELECT
+		*
+		FROM
+		"a_tblCropPattern"
+		WHERE
+		"a_tblCropPattern"."fldCountyCode" = #{value}
+		ORDER BY
+		"fldDate"
+	</select>
+
+	<!-- desc:根据县区代码查找水资源面积数据表 -->
+	<select id="getTblWaterResManSceByfldCountyCode" parameterType="String"
+		resultType="TblWaterResManSce">
+		SELECT
+		*
+		FROM
+		"a_tblWaterResManSce"
+		WHERE
+		"a_tblWaterResManSce"."fldCountyCode" = #{value}
+		ORDER BY
+		"fldDate"
+	</select>
+
+	<!-- desc:根据县区代码查找三产用水量数据表 -->
+	<select id="getTblWaterUseCountyByfldCountyCode" parameterType="String"
+		resultType="TblWaterUseCounty">
+		SELECT
+		*
+		FROM
+		"a_tblWaterUseCounty"
+		WHERE
+		"a_tblWaterUseCounty"."fldCountyCode" = #{value}
+		ORDER BY
+		"fldDate"
+	</select>
+
+	<!-- desc:根据县区代码查找水权分配数据表 ！！！！！！！！！！！后期需要增加市级代码！！！！！！！！！！ -->
+	<select id="getTblWaterRightCountyByfldCountyCode"
+		parameterType="String" resultType="TblWaterRightCounty">
+		SELECT
+		*
+		FROM
+		"a_tblWaterRightCounty"
+		WHERE
+		"a_tblWaterRightCounty"."fldCountyCode" = #{value}
+		ORDER BY
+		"fldDate"
+	</select>
+
+	<!-- desc:查找流域中下游水分配表 -->
+	<select id="getTblMidDownWaterAllo" resultType="TblMidDownWaterAllo">
+		SELECT
+		*
+		FROM
+		"a_tblMidDownWaterAllo" order by "a_tblMidDownWaterAllo"."fldDate"
+	</select>
+
+	<!-- desc:根据县区代码查找县区用水量数据表 -->
+	<select id="getTblWaterAlloCountyByfldCountyCode" parameterType="String"
+		resultType="TblWaterAlloCounty">
+		SELECT
+		*
+		FROM
+		"a_tblWaterAlloCounty"
+		WHERE
+		"a_tblWaterAlloCounty"."fldCountyCode" = #{value}
+		ORDER BY
+		"fldDate"
+		
+	</select>
+
+</mapper>

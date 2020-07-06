@@ -1,0 +1,44 @@
+[
+	{
+		"id": "fde5be5a-d49d-4e23-b487-782ba870ab7f",
+		"fldWatershedCode": "AKH13002",
+		"fldCountyCode": "620702",
+		"fldCRPType": "8.5",
+		"fldDate": "2030",
+		"fldPrecipitation": 100.4,
+		"fldAvgTemperature": 5.171,
+		"fldMaxTemp": 11.158,
+		"fldMinTemp": -4.6329999
+	}, {
+		"id": "e0356738-b255-4c80-bd5c-354130436b1c",
+		"fldWatershedCode": "AKH13002",
+		"fldCountyCode": "620702",
+		"fldCRPType": "8.5",
+		"fldDate": "2050",
+		"fldPrecipitation": 117.9,
+		"fldAvgTemperature": 5.7129998,
+		"fldMaxTemp": 11.892,
+		"fldMinTemp": -4.2329998
+	}, {
+		"id": "0d6da9a6-f3da-4fc2-acf4-de5ca87c809a",
+		"fldWatershedCode": "AKH13002",
+		"fldCountyCode": "620702",
+		"fldCRPType": "8.5",
+		"fldDate": "2070",
+		"fldPrecipitation": 137.89999,
+		"fldAvgTemperature": 6.4029999,
+		"fldMaxTemp": 12.75,
+		"fldMinTemp": -3.75
+	}, {
+		"id": "c9fbd765-3c1b-4352-9a8f-4f1a2a29c4b6",
+		"fldWatershedCode": "AKH13002",
+		"fldCountyCode": "620702",
+		"fldCRPType": "8.5",
+		"fldDate": "2080",
+		"fldPrecipitation": 148.8,
+		"fldAvgTemperature": 6.7719998,
+		"fldMaxTemp": 13.125,
+		"fldMinTemp": -3.5250001
+	}
+]
+

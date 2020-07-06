@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.smates.dbc2.mapper.GoalDao">
+
+	<insert id="addGoal" parameterType="Goal">
+		INSERT
+		into a_goal
+		VALUES(#{projectId}, #{goal_1}, #{goal_2}, #{goal_3}, #{index_111},
+		#{index_112},
+		#{index_121},#{index_131}, #{index_132}, #{index_141},
+		#{index_142},
+		#{index_143}, #{index_144},#{index_211}, #{index_221},
+		#{index_231},
+		#{index_311}, #{index_321}, #{index_331},
+		#{index_341},
+		#{index_351}, #{index_352},
+		#{index_361},#{index_371},
+		#{index_372}, #{index_373}, #{index_381},
+		#{goal_1_status}, #{goal_2_status}, #{goal_3_status}, #{index_111_status},
+		#{index_112_status},
+		#{index_121_status},#{index_131_status}, #{index_132_status}, #{index_141_status},
+		#{index_142_status},
+		#{index_143_status}, #{index_144_status},#{index_211_status}, #{index_221_status},
+		#{index_231_status},
+		#{index_311_status}, #{index_321_status}, #{index_331_status},
+		#{index_341_status},
+		#{index_351_status}, #{index_352_status},
+		#{index_361_status},#{index_371_status},
+		#{index_372_status}, #{index_373_status}, #{index_381_status})
+	</insert>
+
+	<select id="getGoalById" parameterType="String" resultType="Goal">
+		select *
+		from a_goal
+		where a_goal."id" = #{value}
+	</select>
+	
+	<delete id="deleteGoalById" parameterType="String">
+		DELETE from a_goal where a_goal."id" = #{value}
+	</delete>
+
+
+</mapper>

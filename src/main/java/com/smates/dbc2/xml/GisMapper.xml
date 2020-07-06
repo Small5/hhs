@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.smates.dbc2.mapper.GisDao">
+
+	<select id="getyears" resultType="String">
+		select year from "tcthreeindex_copy" where "projectId"=#{0} group by year order by year asc
+	</select>
+
+	<select id="getScore" parameterType="String" resultType="AssessResult">
+		select * from
+		"tcthreeindex_copy" 
+		where 
+		"tcthreeindex_copy"."projectId"=#{0}
+		and 
+		"tcthreeindex_copy"."year"=#{1}
+	</select>
+	<!-- 查找所有评价结果信息 -->
+	<select id="getAllGisecharts" resultType="AssessResult">
+		select * from
+		"tcthreeindex_copy" where "tcthreeindex_copy"."projectId" = #{value}
+	</select>
+
+	<!-- 插入一条评价结果信息 -->
+	<insert id="addGisecharts" parameterType="Gisecharts">
+		INSERT INTO
+		"a_gisecharts"
+		VALUES(#{year},#{resultOverall},#{resultP1},#{resultP2},#{resultP3})
+	</insert>
+
+	<!-- 插入一条评价结果信息 -->
+	<delete id="deleteGisecharts" parameterType="String">
+		delete from
+		"a_gisecharts" where "a_gisecharts"."year" = #{value}
+	</delete>
+
+	<!-- 更新上游更新面积数据 -->
+	<update id="updateLandUseArea" parameterType="CountryIdAndFarmAreaVo">
+		update "a_tbLanduseScePara"
+		<set>
+			<if test="farmArea!=null">
+				"fldFarmArea" = #{farmArea},
+			</if>
+			<if test="wetLand!=null">
+				"WetlandArea" = #{wetLand},
+			</if>
+		</set>
+		where "a_tbLanduseScePara"."countryId" = #{countryId} and
+		"a_tbLanduseScePara"."projectId" = #{projectId}
+	</update>
+	
+	<!-- 更新滴灌面积 -->
+	<update id="updateSprinkArea" parameterType="CountryIdAndFarmAreaVo">
+		update "a_tbSocioEconomyScePara"
+		set "fldSprinkingArea" = #{sprinkArea}
+		where "a_tbSocioEconomyScePara"."countryId" = #{countryId} and
+		"a_tbSocioEconomyScePara"."projectId" = #{projectId}
+	</update>
+	
+	
+	<update id="updateFlowdown" parameterType="String">
+		update "a_tbWaterManScePara"
+		set "FlowDown" = #{2}
+		where "a_tbWaterManScePara"."countyId" = #{1} and
+		"a_tbWaterManScePara"."projectId" = #{0}
+	</update>
+
+</mapper>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.smates.dbc2.mapper.LeafletDao">
+	
+	<!-- 获取评价等级 -->
+	<select id="getEvellevel" resultType="Evallevel">
+		select * from
+		"tcthreeindex_copy" where year= #{value} order by "countyId"
+	</select>
+
+	<!-- 获取指标类型 -->
+	<select id="getIndexType" resultType="String">
+		select DISTINCT(indextype) from
+		"tctestdata"
+	</select>
+	
+	<!-- 获取指标类型中文 -->
+	<select id="getIndexTypeCH" resultType="String">
+		select "Chinese" from indextype
+	</select>
+	
+	<!-- 获取指标类型英文 -->
+	<select id="getIndexTypeEN" resultType="String">
+		select "English" from indextype
+	</select>
+	
+	<!-- 获取年份-->
+	<select id="getAllYear" resultType="String">
+		select DISTINCT( year) from
+		"tctestdata" order by "year" desc
+	</select>
+	
+	<!-- 获取评价结果-->
+	<select id="getEvaluateResult" resultType="ThreeIndex">
+		select * from
+		"tcthreeindex" where time= #{value}
+	</select>
+	
+	<!-- 根据指标类型,县名获取左边图表数据-->
+	<!-- <select id="getLeftDataByCountyId" resultType="String">
+		select i."waterProductivity",i."waterPressure",
+		i."safeDrinkingWaterR",i."iwrmR",i."transboundaryAvailability",
+		i."areaWetland",i."waterDemandEco",i."groundwaterMining",i."waterUseEco",
+		i."forestCoverR",i."forestSustainableR",i."mountainGreenCoverR",
+		i."gdpPerCapita",i."gdpPerCapitaEmployed",i."youthEmpR",i."gdpTourismR",
+		i."landPopuR",i."urbanR",i."avgWelfare",i."waterProductivityAgri",
+		i."waterUseEffiAgri",i."agriOutputPerHectare",i."areaCrop"
+		from "indicatorOutput" i where "projectId" = #{projectId} and
+		"countyId" = #{countyId}
+	</select>
+	 -->
+	 <select id="getLeftDataByCountyId" resultType="Indicators">
+		select * from "indicatorOutput" where "projectId" = #{projectId} and
+		"countyId" = #{countyId}
+	</select>
+	
+	<!-- 根据指标类型,县名获取左边图表数据
+	<select id="getLeftDataByType" resultType="GisIndex">
+		select year,value from
+		"tctestdata" where
+		 "countyname"= #{param1} and "indextype"= #{param2} 
+		order by "tctestdata"."year"
+	</select>-->
+	
+	<!-- 根据年份获取右边图表数据-->
+	<select id="getRightDataByYear" resultType="Developindex">
+		select * from
+		"tcdevelopment" where
+		 "countyname"= #{param1} and "year"= #{param2} 
+	</select>
+	
+	<!-- 根据年份和指标类型获取每个区域的指标数据-->
+	<select id="getTypeValueByYearAndIndexype" resultType="GisIndex">
+		select * from
+		"tctestdata" where
+		 "indextype"= #{param1} and "year"= #{param2} 
+	</select>
+	
+</mapper>

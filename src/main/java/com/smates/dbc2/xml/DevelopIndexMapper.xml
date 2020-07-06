@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.smates.dbc2.mapper.DevelopIndexDao">
+
+	<!-- 保存发展指标 -->
+	<insert id="addDevelopIndex" parameterType="Developindex">
+		INSERT INTO   
+		"tcdevelopment"
+		VALUES(#{oid},#{countyname},#{AQ},#{EQ},#{MGWD},#{GDP},#{IAGDP},#{MIA},#{Pop},#{DFA},#{DLA},#{year})
+	</insert>
+	
+	<delete id="deleteDevelopIndex">
+		delete from "tcdevelopment"
+	</delete>
+
+	<select id="getAllDevelopIndex" resultType="Developindex">
+		select * from "tcdevelopment"
+	</select>
+
+</mapper>

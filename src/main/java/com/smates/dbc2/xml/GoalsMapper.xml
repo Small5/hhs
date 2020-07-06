@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smates.dbc2.mapper.GoalsDao">
+
+	<resultMap type="goals" id="getAllGoalsQueryMap">
+		<id column="goal_id" property="goalId" />
+		<result column="goal_name" property="goalName" />
+		<result column="parent_id" property="parentId" />
+		<result column="order_no" property="order" />
+		<result column="value" property="value" />
+		<result column="englishName" property="englishName" />
+		<!-- 映射到对象集合中 -->
+		<collection property="subGoals" ofType="goals">
+			<id column="sub_goal_id" property="goalId" />
+			<result column="sub_goal_name" property="goalName" />
+			<result column="sub_parent_id" property="parentId" />
+			<result column="sub_order_no" property="order" />
+			<result column="sub_value" property="value" />
+			<result column="sub_enlishName" property="englishName" />
+			
+			<collection property="subGoals" ofType="goals">
+				<id column="ssub_goal_id" property="goalId" />
+				<result column="ssub_goal_name" property="goalName" />
+				<result column="ssub_parent_id" property="parentId" />
+				<result column="ssub_order_no" property="order" />
+				<result column="ssub_value" property="value" />
+				<result column="ssub_enlishName" property="englishName" />
+			</collection>
+		</collection>
+	</resultMap>
+	
+	<resultMap type="goals" id="goalsResultMap">
+		<id column="goal_id" property="goalId" />
+		<result column="goal_name" property="goalName" />
+		<result column="parent_id" property="parentId" />
+		<result column="order_no" property="order" />
+		<result column="value" property="value" />
+		<result column="englishName" property="englishName" />
+		<result column="projectID" property="projectID" />
+	</resultMap>
+
+<!-- 	获取某项目的目标	tree结构 -->
+	<select id="getGoalsByProjectidTree" resultMap="getAllGoalsQueryMap"
+		parameterType="String">
+		SELECT
+			A ."GOAL_ID",
+			A ."GOAL_NAME",
+			A ."PARENT_ID",
+			A ."ORDER_NO",
+			A ."VALUE",
+			A ."englishName",
+			b."GOAL_ID" sub_goal_id,
+			b."GOAL_NAME" sub_goal_name,
+			b."PARENT_ID" sub_parent_id,
+			b."ORDER_NO" sub_order_no,
+			b."VALUE" sub_value,
+			b ."englishName" sub_englishName,
+			C ."GOAL_ID" ssub_goal_id,
+			C ."GOAL_NAME" ssub_goal_name,
+			C ."PARENT_ID" ssub_parent_id,
+			C ."ORDER_NO" ssub_order_no,
+			C ."VALUE" ssub_value,
+			C ."englishName" ssub_englishName
+		FROM
+			a_goals A
+		LEFT JOIN a_goals b ON A ."GOAL_ID" = b."PARENT_ID"
+		LEFT JOIN a_goals C ON b."GOAL_ID" = C ."PARENT_ID"
+		WHERE
+			A ."PARENT_ID" = '0'
+		AND A ."projectID" = '${value}'
+		ORDER BY
+			A ."ORDER_NO",
+			b."ORDER_NO",
+			C ."ORDER_NO"
+	</select>
+	
+<!-- 	获取默认目标 -->
+	<select id="getDefaultGoals" resultMap="goalsResultMap">
+		SELECT * FROM a_goals WHERE a_goals."projectID" = 'default'
+	</select>
+	
+<!-- 	增加一个目标 -->
+	<insert id="addOneGoal" parameterType="goals">
+		INSERT INTO a_goals VALUES(#{goalId},#{goalName},#{parentId},#{order},#{value},#{englishName},#{projectID})
+	</insert>
+	
+<!-- 	增加一堆目标  ， 某项目没有定制目标时使用-->
+	<insert id="addGoals" parameterType="java.util.List">
+		INSERT INTO a_goals (
+			"GOAL_ID",
+			"GOAL_NAME",
+			"PARENT_ID",
+			"ORDER_NO",
+			"VALUE",
+			"englishName",
+			"projectID"
+		)
+		VALUES
+		<foreach collection="list" item="item" index="index" separator=",">
+			(
+			#{item.goalId},
+			#{item.goalName},
+			#{item.parentId},
+			#{item.order},
+			#{item.value},
+			#{item.englishName},
+			#{item.projectID}
+			)
+		</foreach>
+	</insert>
+	
+<!-- 	获取某项目下所有目标  list结构-->
+	<select id="getGoalsByProjectIDList" parameterType="String" resultMap="goalsResultMap">
+		SELECT * FROM a_goals WHERE a_goals."projectID"='${value}'
+		order by a_goals."GOAL_ID"
+	</select>
+	
+<!-- 	删除目标 -->
+	<delete id="deleteGoal" parameterType="GoalsIDAndProjectID">
+		DELETE
+		FROM
+			a_goals
+		WHERE
+			a_goals."GOAL_ID" = '${goalsId}'
+		AND a_goals."projectID" = '${projectId}'
+	</delete>
+	<!-- 查询出共多少条数据 -->
+    <select id="countSum" parameterType="String" resultType="int">
+		select count(*) from a_goals where a_goals."projectID"= '${value}'
+	</select>
+</mapper>

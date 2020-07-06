@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.smates.dbc2.mapper.ChineseAndEnglishDao">
+
+	<!-- 查找一个中英对照词表 -->
+	<select id="getChineseAndEnglishByIndex" resultType="ChineseAndEnglish" parameterType="int">
+		select * from "a_chineseAndEnglish" ce where ce."index" = #{value}
+	</select>
+
+</mapper>

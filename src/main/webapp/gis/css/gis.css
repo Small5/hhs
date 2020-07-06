@@ -1,0 +1,140 @@
+body {
+	padding: 0;
+	margin: 0;
+}			
+html,
+body,
+#mapid {
+	height: 100%;
+	width: 100vw;
+}
+
+a{
+	text-align:center;
+	font-size: 15px;
+	font-family: 微软雅黑;
+	
+}
+
+select{
+	font-size: 13px;
+	font-family: 微软雅黑;
+}
+.index {
+	position: absolute;
+	left: 80px;
+	top: 74px;
+}
+
+.year {
+	position: absolute;
+	left: 300px;
+	top: 74px;
+}
+.legend{
+	height:120px;
+	width: 100px;
+
+	position: absolute;
+	bottom: 0;
+	left: 10vx;
+}
+.Panel {
+	position: absolute;
+	bottom: -10px;
+	left:8vw;
+}
+.leaflet-left .leaflet-control {
+	margin-left: 0px;
+}
+.leaflet-bottom .leaflet-control {
+	margin-bottom: 140px;
+}
+.echarts{
+	width: 200px;
+	height: 150px;
+}
+
+#leftechart-social,#rightechart-social{
+	width:40vw;
+	height:160px;
+	position: absolute;
+	top: 25px;
+}
+
+#social_ratio_place,#social_change_place{
+	font-family: 微软雅黑;
+	font-size: 17px;
+	color: #000000;
+	font-weight: bold;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* #gis_page a{
+	text-align:center;
+	font-size: 15px;
+	font-family: 微软雅黑;
+	
+}
+
+#gis_page select{
+	font-size: 13px;
+	font-family: 微软雅黑;
+}
+#gis_page .index {
+	 position: absolute;
+  	 left: 80px;
+	 
+}
+
+#gis_page .year {
+	 position: absolute;
+  	 left: 300px;
+}
+#gis_page .legend{
+	height:120px;
+	width: 100px;
+
+	position: absolute;
+	bottom: 0;
+	left: 10vx;
+}
+#gis_page .Panel{
+	position: absolute;
+	bottom: -10px;
+	left:8vw;
+	margin-bottom: 140px;
+}
+#gis_page .echarts{
+	width: 200px;
+	height: 150px;
+}
+
+#gis_page #leftechart-social,#rightechart-social{
+	width:40vw;
+	height:160px;
+	position: absolute;
+	top: 25px;
+}
+
+#gis_page #social_ratio_place,#social_change_place{
+	font-family: 微软雅黑;
+	font-size: 17px;
+	color: #000000;
+	font-weight: bold;
+} */

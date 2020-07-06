@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one
+  or more contributor license agreements. See the NOTICE file
+  distributed with this work for additional information
+  regarding copyright ownership. The ASF licenses this file
+  to you under the Apache License, Version 2.0 (the
+  "License"); you may not use this file except in compliance
+  with the License. You may obtain a copy of the License at
+ 
+  http://www.apache.org/licenses/LICENSE-2.0 
+ 
+  Unless required by applicable law or agreed to in writing,
+  software distributed under the License is distributed on an
+  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  KIND, either express or implied. See the License for the
+  specific language governing permissions and limitations
+  under the License.
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:foo="http://cxf.apache.org/configuration/foo"
+       xmlns:jaxws="http://cxf.apache.org/jaxws"
+       xmlns:http-conf="http://cxf.apache.org/transports/http/configuration"
+       xsi:schemaLocation="
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd
+			http://cxf.apache.org/transports/http/configuration
+    		http://cxf.apache.org/schemas/configuration/http-conf.xsd">
+
+  <!-- 引入CXF核心配置 -->
+	<import resource="classpath:META-INF/cxf/cxf.xml"/>
+	<import resource="classpath:META-INF/cxf/cxf-extension-soap.xml"/>
+	
+	<!--   声明远端服务 -->
+<!-- 	<jaxws:client id="InputDataServiceImplService" -->
+<!-- 				serviceClass="com.smates.dbc2.webservicedemo.inputdata.InputDataService" -->
+<!-- 				address="http://210.77.67.251:19001/Webservice-Demo/InputDataServiceWS"> -->
+<!-- 		<jaxws:outInterceptors> -->
+<!-- 	      <bean class="org.apache.cxf.interceptor.LoggingOutInterceptor"/> -->
+<!-- 	    </jaxws:outInterceptors> -->
+<!-- 	</jaxws:client> -->
+	
+<!-- 	<jaxws:client id="OutputDataServiceImplService" -->
+<!-- 				serviceClass="com.smates.dbc2.webservicedemo.outputdata.OutputDataService" -->
+<!-- 				address="http://210.77.67.251:19001/Webservice-Demo/OutputDataServiceWS"> -->
+<!-- 	</jaxws:client> -->
+	
+<!-- 	<jaxws:client id="QueryStateServiceImplService" -->
+<!-- 				serviceClass="com.smates.dbc2.webservicedemo.querystate.QueryStateService" -->
+<!-- 				address="http://210.77.67.251:19001/Webservice-Demo/QueryStateServiceWS"> -->
+<!-- 	</jaxws:client> -->
+
+	<jaxws:client id="IModelEconomicImpl"
+				serviceClass="com.smates.dbc2.ws.IModelEconomic"
+				address="http://210.77.68.221:9099/ModelEconomic/IModelEconomicWS">
+	</jaxws:client>
+	<!-- Spring调用CXF超时设置 -->
+	<http-conf:conduit name="http://210.77.68.221:9099/ModelEconomic/IModelEconomicWS">
+		<http-conf:client ConnectionTimeout="180000"
+					ReceiveTimeout="300000"/>
+	</http-conf:conduit>
+</beans>

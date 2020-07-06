@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smates.dbc2.mapper.ModelDao">
+	<select id="queryAvailable" resultType="String" parameterType="com.smates.dbc2.vo.ProjectIdAndCountyId">
+	SELECT  year 
+	FROM  "indicatorOutput" 
+	WHERE "indicatorOutput"."projectId"=#{projectId}
+    AND "indicatorOutput"."countyId"=#{countyId}
+    ORDER BY year ASC;
+	</select>
+	
+	<select id="getDataYearlyws" resultType="Indicators" parameterType="com.smates.dbc2.vo.ProjectIdAndCountyId2">
+		SELECT
+    		"waterProductivity","waterPressure","safeDrinkingWaterR",
+    		"iwrmR","transboundaryAvailability","areaWetland",
+    		"waterDemandEco","groundwaterMining","waterUseEco",
+    		"forestCoverR","forestSustainableR","mountainGreenCoverR",
+    		"gdpPerCapita","gdpPerCapitaEmployed","youthEmpR",
+    		"gdpTourismR","landPopuR","urbanR","avgWelfare",
+    		"waterProductivityAgri","waterUseEffiAgri","agriOutputPerHectare","areaCrop"
+    	FROM "indicatorOutput"
+    	WHERE "indicatorOutput"."projectId"=#{projectId}
+   		AND "indicatorOutput"."countyId"=#{countryId}
+    	AND "indicatorOutput".year=#{year};
+	</select>
+	
+	<select id="getgoalyear" resultType="String" parameterType="String">
+		select "goalYear" from a_project where id = #{0}
+	</select>
+	
+	<!-- 查找所有模型运行结果信息 -->
+	<select id="getAllmodeloutput" resultType="com.smates.dbc2.po.ModelOutput">
+		select * from
+		"modelOutput" where "modelOutput"."projectId" = #{value}
+	</select>
+	
+	<!-- 记录开始时间 -->
+	<insert id="inputStartTime" parameterType="String">
+		INSERT INTO
+		"StartTime"
+		VALUES(#{0},#{1})
+	</insert>
+	<!-- 删除开始时间 -->
+	<delete id="deleteStartTime" parameterType="String">
+		DELETE FROM
+		"StartTime"
+		where "StartTime"."projectId" = #{0}
+	</delete>
+	
+	<!-- 记录结束时间 -->
+	<insert id="inputEndTime" parameterType="String">
+		INSERT INTO
+		"EndTime"
+		VALUES(#{0},#{1})
+	</insert>
+	
+	<!-- 删除结束时间 -->
+	<delete id="deleteEndTime" parameterType="String">
+		DELETE FROM
+		"EndTime"
+		where "EndTime"."projectId" = #{0}
+	</delete>
+	
+	<select id="getStartTime" resultType="String" parameterType="String">
+		select time from "StartTime" where "StartTime"."projectId" = #{0}
+	</select>
+	
+	<select id="getEndTime" resultType="String" parameterType="String">
+		select time from "EndTime" where "EndTime"."projectId" = #{0}
+	</select>
+</mapper>

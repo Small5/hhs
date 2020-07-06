@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smates.dbc2.mapper.WatershedParaDao">
+<!-- 根据id删除气候情景参数 -->
+	<delete id="deleteTblclimateSceParaById" parameterType="com.smates.dbc2.vo.ProjectIdAndCountyId">
+		delete
+		from "a_tblClimateScePara" where "projectId" =
+		#{projectId} and "countyId" = #{countyId}
+	</delete>
+<!-- 根据id,username水资源管理参数 -->
+	<delete id="deleteWaterParaById" parameterType="com.smates.dbc2.vo.ProjectIdAndCountyId">
+		delete
+		from "a_tbWaterManScePara" where "projectId" =
+		#{projectId} and "countyId" = #{countyId}
+	</delete>
+<!-- 根据id,username删除社会经济情景参数 -->
+	<delete id="deleteSocEcoParaById" parameterType="com.smates.dbc2.vo.ProjectIdAndCountyId">
+		delete
+		from "a_tblSocioEconomyScePara" where "projectId" =
+		#{projectId} and "countyId" = #{countyId}
+	</delete>
+<!-- 根据id,username删除土地利用情景参数 -->
+	<delete id="deleteLandUseParaById" parameterType="com.smates.dbc2.vo.ProjectIdAndCountyId">
+		delete
+		from "a_tblLanduseScePara" where "projectId" =
+		#{projectId} and "countyId" = #{countyId}
+	</delete>
+<!-- 保存水资源管理参数 -->
+	<insert id="addWaterPara" parameterType="WaterPara">
+		INSERT INTO
+		"a_tbWaterManScePara"
+		VALUES(#{projectId}, #{countyId}, #{Upstreamwater}, 
+				#{FlowDown}, #{Waterdistribution}, #{SurSup}, #{GWSup}, #{SupWater})
+	</insert>
+<!-- 查找水资源情景参数 -->
+	<select id="getWaterParaByProjectId" parameterType="String"
+		resultType="WaterPara">
+		SELECT * from "a_tbWaterManScePara" where
+		"a_tbWaterManScePara"."projectId" =#{projectId} order by
+		"a_tbWaterManScePara"."countyId"
+	</select>
+<!-- 保存社会经济情景参数 -->
+	<insert id="addSocEcoPara" parameterType="SocEcoPara">
+		INSERT INTO
+		"a_tblSocioEconomyScePara"
+		VALUES(#{projectId}, #{countyId}, #{popolicy}, 
+		#{IARArg}, #{IARInd}, #{IARSer},#{negak})
+	</insert>
+<!-- 查找社会经济情景参数 -->
+	<select id="getSocEcoParaByProjectId" parameterType="String"
+		resultType="SocEcoPara">
+		SELECT * from "a_tblSocioEconomyScePara" where
+		"a_tblSocioEconomyScePara"."projectId" =#{projectId} order by
+		"a_tblSocioEconomyScePara"."countyId"
+	</select>
+	<!-- 查找土地利用情景参数 -->
+	<select id="getLandUseParaByProjectId" parameterType="String"
+		resultType="LandUsePara">
+		SELECT * from "a_tblLanduseScePara" where
+		"a_tblLanduseScePara"."projectId" =#{projectId} order by
+		"a_tblLanduseScePara"."countyId"
+	</select>
+	<!-- 保存土地利用情景参数 -->
+	<insert id="addLandUsePara" parameterType="LandUsePara">
+		INSERT INTO
+		"a_tblLanduseScePara"
+		VALUES(#{projectId}, #{countyId}, #{LandFarmR}, #{LandForestR},
+				#{LandGrassR}, #{WaterArea}, #{LandBareR}, #{LandCityR}, #{CPWhR},
+				#{CPCornR}, #{CPOilR}, #{CPVegR}, #{CPFTR},#{CPCotR})
+	</insert>
+	<!-- 查找气候情景参数 -->
+	<select id="getTblClimateSceParaByProjectId" parameterType="String"
+		resultType="TblClimateScePara">
+		SELECT * from "a_tblClimateScePara" where
+		"a_tblClimateScePara"."projectId" =#{projectId} order by
+		"a_tblClimateScePara"."countyId"
+	</select>
+	
+	<!-- 保存气候情景参数 -->
+	<insert id="addTblClimateScePara" parameterType="TblClimateScePara">
+		INSERT INTO
+		"a_tblClimateScePara"
+		VALUES(#{projectId},#{countyId},#{PreChangeR},#{TempChange})
+	</insert>
+
+	
+
+	<!-- 查找气候情景参数 -->
+	<select id="getTblClimateSceParaByProjectIdAndCountryId"
+		parameterType="com.smates.dbc2.vo.ProjectIdAndCountyId" resultType="TblClimateScePara">
+		SELECT * from "a_tblClimateScePara" where
+		"a_tblClimateScePara"."projectId" =#{projectId} and
+		"a_tblClimateScePara"."countryId" =#{countryId} and
+		"a_tblClimateScePara"."year" = #{year}
+	</select>
+
+	
+
+	<!-- 添加产业与城市发展情景参数 -->
+	<insert id="addTblIndUrbanScePara" parameterType="TblIndUrbanScePara">
+		insert INTO
+		"a_tblIndUrbanScePara"
+		VALUES(#{projectId},#{countryId},#{nonFarmPercent},#{fldIndOutput},#{fldIndOutputPercent},#{fldAgrOutput},#{fldAgrOutputPercent},#{fldSerOutput},#{fldSerOutputPercent},#{industryProgressRate},#{changeRateOfTourismIndustry},#{year},#{fldFarmPop},#{fldNonFarmPop})
+	</insert>
+
+	<!-- 根据id删除产业与城市发展情景参数 -->
+	<delete id="deleteTblIndUrbanScePara" parameterType="com.smates.dbc2.vo.ProjectIdAndCountyId">
+		delete
+		from
+		"a_tblIndUrbanScePara" where 
+		"a_tblIndUrbanScePara"."projectId" = #{projectId} and 
+		"a_tblIndUrbanScePara"."countryId" = #{countryId} and
+		"a_tblIndUrbanScePara"."year" = #{year}
+	</delete>
+
+	<!-- 查找产业与城市发展情景参数 -->
+	<select id="getTblIndUrbanSceParaByProjectIdAndCountryId"
+		parameterType="com.smates.dbc2.vo.ProjectIdAndCountyId" resultType="TblIndUrbanScePara">
+		SELECT * from "a_tblIndUrbanScePara" where
+		"a_tblIndUrbanScePara"."projectId" =#{projectId} and
+		"a_tblIndUrbanScePara"."countryId" =#{countryId} and
+		"a_tblIndUrbanScePara"."year" = #{year}
+	</select>
+
+	<!-- 获取产业与城市发展参数 -->
+	<select id="getTblIndUrbanScePara" resultType="TblIndUrbanScePara" parameterType="String">
+		SELECT * from "a_tblIndUrbanScePara" where
+		"a_tblIndUrbanScePara"."projectId" =#{projectId} ORDER BY "a_tblIndUrbanScePara"."year","a_tblIndUrbanScePara"."countryId" =#{countryId}
+	</select>
+	
+	<!-- 添加土地资源利用情景参数 -->
+	<insert id="addTbLanduseScePara" parameterType="tbLanduseScePara">
+	insert INTO
+	"a_tbLanduseScePara" VALUES
+	(#{projectId},#{countryId},#{fldFarmAreaChgR},#{wheatChgR},#{cornChgR},#{oilPlantsChgR},#{vegetablesChgR},#{orchardChgR},#{cottonChgR},#{wheatArea},#{cornArea},#{oilPlantsArea},#{vegetablesArea},#{orchardArea},#{cottonArea},#{WetlandArea},#{ForestArea},#{GrassArea},#{WaterArea},#{year},#{fldFarmArea})
+</insert>
+
+	<!-- 删除土地资源利用情景参数 -->
+	<delete id="deleteTbLanduseScePara" parameterType="com.smates.dbc2.vo.ProjectIdAndCountyId">
+		delete
+		from
+		"a_tbLanduseScePara" where 
+		"a_tbLanduseScePara"."projectId" = #{projectId} and 
+		"a_tbLanduseScePara"."countryId" = #{countryId} and
+		"a_tbLanduseScePara"."year" = #{year}
+	</delete>
+
+	<!-- 查找土地资源利用情景参数 -->
+	<select id="getTbLanduseSceParaByProjectIdAndCountryId"
+		parameterType="com.smates.dbc2.vo.ProjectIdAndCountyId" resultType="TbLanduseScePara">
+		SELECT * from "a_tbLanduseScePara" where
+		"a_tbLanduseScePara"."projectId" =#{projectId} and
+		"a_tbLanduseScePara"."countryId" =#{countryId} and
+		"a_tbLanduseScePara"."year" = #{year}
+	</select>
+
+	<!-- 获取土地利用参数 -->
+	<select id="geTbLanduseScePara" resultType="TbLanduseScePara" parameterType="String">
+		SELECT * FROM "a_tbLanduseScePara" where "projectId" = #{value} ORDER BY "a_tbLanduseScePara"."year","a_tbLanduseScePara"."countryId"
+	</select>
+	
+	<!-- 添加社会经济发展情景参数 -->
+	<insert id="addTbSocioEconomyScePara" parameterType="tbSocioEconomyScePara">
+		INSERT INTO
+		"a_tbSocioEconomyScePara" ("projectId", "countryId",
+		"perCapGDPR","perCapGDP","fldMainCannelLeng", "fldMainCanWUE",
+		"fldBranCannelLeng", "fldBranCanWUE", "fldDouLeng", "fldDouWUE",
+		"fldNongLeng", "fldNongWUE", "fldMaoLeng", "fldMaoWUE",
+		"fldSprinkingArea", "fldDropIrrArea", "fldIndustryAllowance",
+		"fldFarmAllowance", "fldServiceAllowance","year") VALUES
+		(#{projectId},#{countryId},#{perCapGDPR},#{perCapGDP},#{fldMainCannelLeng},#{fldMainCanWUE},#{fldBranCannelLeng},#{fldBranCanWUE},#{fldDouLeng},#{fldDouWUE},#{fldNongLeng},#{fldNongWUE},#{fldMaoLeng},#{fldMaoWUE},#{fldSprinkingArea},#{fldDropIrrArea},#{fldIndustryAllowance},#{fldFarmAllowance},#{fldServiceAllowance},#{year})
+	</insert>
+	
+	<!-- 获取社会经济参数 -->
+	<select id="getTbSocioEconomyScePara" resultType="TbSocioEconomyScePara" parameterType="String">
+		select * from "a_tbSocioEconomyScePara" where "projectId" = #{value} ORDER BY "a_tbSocioEconomyScePara"."year","a_tbSocioEconomyScePara"."countryId"
+	</select>
+	
+	<!-- 获取中游滴灌面积 -->
+	<select id="getmidStreamSocioEconomyScePara" resultType="TbSocioEconomyScePara" parameterType="String">
+		SELECT
+			"a_countryStreamRelation".countryid,
+			"a_countryStreamRelation"."cityName",
+			"a_tbSocioEconomyScePara"."fldSprinkingArea"
+		FROM
+			"a_tbSocioEconomyScePara",
+			"a_countryStreamRelation"
+		WHERE
+			"a_countryStreamRelation".stream = 'midstream'
+		AND "a_tbSocioEconomyScePara"."projectId" = #{value}
+	</select>
+
+	<!-- 删除社会经济发展情景参数 -->
+	<delete id="deleteTbSocioEconomyScePara" parameterType="com.smates.dbc2.vo.ProjectIdAndCountyId">
+		delete
+		from "a_tbSocioEconomyScePara" where
+		"a_tbSocioEconomyScePara"."projectId" =
+		#{projectId} and
+		"a_tbSocioEconomyScePara"."countryId" = #{countryId} and "a_tbSocioEconomyScePara"."year" = #{year}
+	</delete>
+
+	<!-- 查找土地资源利用情景参数 -->
+	<select id="getTbSocioEconomySceParaByProjectIdAndCountryId"
+		parameterType="com.smates.dbc2.vo.ProjectIdAndCountyId" resultType="TbSocioEconomyScePara">
+		SELECT * from "a_tbSocioEconomyScePara" where
+		"a_tbSocioEconomyScePara"."projectId" =#{projectId} and
+		"a_tbSocioEconomyScePara"."countryId" =#{countryId} and 
+		"a_tbSocioEconomyScePara"."year" = #{year}
+	</select>
+
+	<!-- 添加水资源管理情景县区用水量参数 -->
+	<insert id="addTbWaterManSceCWPara" parameterType="TbWaterManSceCWPara">
+		INSERT into
+		"a_tbWaterManSceCWPara"
+		VALUES(#{id},#{fldWatershedCode},#{fldProjectCode},#{fldCountyCode},#{fldDate},#{fldSurfaceWater},#{fldGroundWater})
+	</insert>
+
+	<!-- 添加水资源管理情景流域中下游用水量参数表 -->
+	<insert id="addTbWaterManSceMDPara" parameterType="tbWaterManSceMDPara">
+		INSERT into
+		"a_tbWaterManSceMDPara"
+		VALUES(#{id},#{fldWatershedCode},#{fldProjectCode},#{fldCountyCode},#{fldDate},#{fldWaterUseMid},#{fldWaterUseDown})
+	</insert>
+	
+	<!-- 获取中下游分水量数据 -->
+	<select id="getTbWaterManSceMDPara" parameterType="String" resultType="TbWaterManSceMDPara">
+		SELECT * from "a_tbWaterManSceMDPara" where "a_tbWaterManSceMDPara"."fldProjectCode" = #{value}
+	</select>
+
+	<!-- 添加水资源管理情景县区水权分配参数表 -->
+	<insert id="addTbWaterManSceWRPara" parameterType="TbWaterManSceWRPara">
+		INSERT into
+		"a_tbWaterManSceWRPara"
+		VALUES(#{fldWatershedCode},#{fldProjectCode},#{fldCountyCode},#{fldDate},#{fldWaterRightRatio})
+	</insert>
+
+	<!-- 删除水资源管理情景县区水权分配参数表 -->
+	<delete id="deleteTbWaterManSceWRPara" parameterType="ProjectIdAndCountyId">
+		delete from
+		"a_tbWaterManSceWRPara" where
+		"a_tbWaterManSceWRPara"."fldProjectCode"
+		= #{projectId} and "a_tbWaterManSceWRPara"."fldCountryCode" =
+		#{countryId}
+	</delete>
+
+	<!-- 查找水权分配比例 -->
+	<select id="getTbWaterManSceWRParaByProjectId" parameterType="String"
+		resultType="TbWaterManSceWRPara">
+		select * from "a_tbWaterManSceWRPara" where
+		"a_tbWaterManSceWRPara"."fldProjectCode" =#{value} ORDER BY
+		"a_tbWaterManSceWRPara"."fldDate","a_tbWaterManSceWRPara"."fldCountryCode"
+	</select>
+
+	<!-- 添加水资源管理，中下游水分配 -->
+	<insert id="addMidAndDownStreamPercentPara" parameterType="MidAndDownStreamPercentPara">
+		insert into "a_MidAndDownStreamPercentPara"
+		values(#{projectId},#{watershedId},#{serfaceWater},#{midstreamPercent},#{downstreamPercent})
+	</insert>
+	
+	<!-- 获取中下游分水量 -->
+	<select id="getMidAndDownStreamPercentPara" parameterType="String" resultType="MidAndDownStreamPercentPara">
+		select * from "a_MidAndDownStreamPercentPara" where "projectId" = #{value}
+	</select>
+
+	<!-- 删除 中下游水分配 -->
+	<delete id="deleteMidAndDownStreamPercentPara" parameterType="String">
+		delete
+		from "a_MidAndDownStreamPercentPara" where
+		"a_MidAndDownStreamPercentPara"."projectId" = #{value}
+	</delete>
+
+	<!-- 保存节水情景 -->
+	<insert id="addSaveWater" parameterType="SaveWater">
+		insert into
+		"a_saveWater"
+		values(#{projectId},#{countryId},#{savewater},#{year})
+	</insert>
+
+	<!-- 获取节水技术参数 -->
+	<select id="getSaveWaterByProjectId" parameterType="String"
+		resultType="saveWater">
+		select * from "a_saveWater" where "a_saveWater"."projectId"
+		=#{value} ORDER BY "a_saveWater"."year","a_saveWater"."countryId"
+	</select>
+
+	<!-- 删除某个县区的节水情景数据 -->
+	<delete id="deleteSaveWater" parameterType="ProjectIdAndCountyId">
+		delete from "a_saveWater" where
+		"a_saveWater"."projectId" = #{projectId} and
+		"a_saveWater"."countryId" = #{countryId}
+	</delete>
+
+</mapper>

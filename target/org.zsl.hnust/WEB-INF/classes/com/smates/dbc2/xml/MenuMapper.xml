@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smates.dbc2.mapper.MenuDao">
+
+	<resultMap type="com.smates.dbc2.vo.ComboBoxRow" id="ComboBoxRowMap">
+		<id column="menu_id" property="id" />
+		<result column="menu_name" property="text" />
+	</resultMap>
+
+	<resultMap type="menu" id="getAllmenuQueryMap">
+		<id column="menu_id" property="menuId" />
+		<result column="menu_name" property="menuName" />
+		<result column="parent_id" property="parentId" />
+		<result column="menu_url" property="menuUrl" />
+		<result column="order_no" property="order" />
+		<result column="englishName" property="englishName" />
+		<result column="permition" property="permition" />
+
+
+		<!-- 映射到对象集合中 -->
+		<collection property="submenus" ofType="menu">
+			<id column="sub_menu_id" property="menuId" />
+			<result column="sub_menu_name" property="menuName" />
+			<result column="sub_parent_id" property="parentId" />
+			<result column="sub_menu_url" property="menuUrl" />
+			<result column="sub_order_no" property="order" />
+			<result column="sub_enlishName" property="englishName" />
+		</collection>
+	</resultMap>
+
+	<!-- 
+	des:查找到所有的一级菜单和一级菜单下的二级菜单,若一级菜单无权限查看,则此一级菜单下所有的二级菜单都无权限查看.当二级菜单为空时,一级菜单可以显示.但是 
+		二级菜单都没有权限查看时,一级菜单不显示
+	 example sql: 
+	 SELECT
+		A."MENU_ID",A."MENU_NAME",A."MENU_URL",A."ORDER_NO",A."PARENT_ID",A."PERMITION",
+		b."MENU_ID" sub_menu_id,
+		b."MENU_NAME" sub_menu_name,
+		b."MENU_URL" sub_menu_url,
+		b."ORDER_NO" sub_menu_order,
+		b."PARENT_ID" sub_menu_parent_id
+		FROM
+		s_menu A
+		LEFT JOIN s_menu b ON A ."MENU_ID" = b."PARENT_ID"
+		WHERE
+		A ."PARENT_ID" = '0'
+		AND A ."PERMITION" LIKE '%1%'
+		AND (
+		b."PERMITION" IS NULL
+		OR (b."PERMITION" LIKE '%1%')
+		)
+		ORDER BY
+		A ."ORDER_NO",
+		b."ORDER_NO"
+	  -->
+	<select id="getMenuByRole" resultMap="getAllmenuQueryMap"
+		parameterType="String">
+		SELECT
+		A."MENU_ID",A."MENU_NAME",A."MENU_URL",A."ORDER_NO",A."PARENT_ID",A."PERMITION",A."englishName",
+		b."MENU_ID" sub_menu_id,
+		b."MENU_NAME" sub_menu_name,
+		b."MENU_URL" sub_menu_url,
+		b."ORDER_NO" sub_menu_order,
+		b."PARENT_ID" sub_menu_parent_id,
+		b."englishName" sub_enlishName
+		FROM
+		s_menu A
+		LEFT JOIN s_menu b ON A ."MENU_ID" = b."PARENT_ID"
+		WHERE
+		A ."PARENT_ID" = '0'
+		AND A ."PERMITION" LIKE '%${value}%'
+		AND (
+		b."PERMITION" IS NULL
+		OR (b."PERMITION" LIKE '%${value}%')
+		)
+		ORDER BY
+		A ."ORDER_NO",
+		b."ORDER_NO"
+	</select>
+
+</mapper>

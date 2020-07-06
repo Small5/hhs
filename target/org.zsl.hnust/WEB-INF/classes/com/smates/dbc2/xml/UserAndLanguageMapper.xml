@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.smates.dbc2.mapper.UserAndLanguageDao">
+
+	<select id="getUserAndLanuageByAccountNumber" parameterType="String"
+		resultType="UserAndLanuage">
+		select * from "a_userAndLanuage" where
+		"a_userAndLanuage"."accountNumber" = #{value}
+	</select>
+
+	<!-- 修改用户默认语言 -->
+	<update id="updateUserAndLanguage" parameterType="hashmap">
+		UPDATE
+		"a_userAndLanuage"
+		set "language" = #{language}
+		where "accountNumber" = #{accountNumber}
+	</update>
+	
+<!-- 修改用户默认语言和新手引导 -->
+	<update id="updateUserLanguageAndGuide" parameterType="hashmap">
+		UPDATE
+		"a_userAndLanuage"
+		set "language" = #{language},"guide" = #{guide}
+		where "accountNumber" = #{accountNumber}
+	</update>
+	
+<!-- 	新增用户的语言和新手引导选项 -->
+	<insert id="addUserLanguageAndGuide" parameterType="UserAndLanuage">
+		INSERT INTO "a_userAndLanuage" VALUES (${accountNumber},${language},${guide})
+	</insert>
+	
+	<delete id="deleteUserLanguageAndGuide" parameterType="String">
+		DELETE FROM "a_userAndLanuage" WHERE "a_userAndLanuage"."accountNumber"='${value}'
+	</delete>
+	
+	<select id="getUserLanguageAndGuide" parameterType="String" resultType="UserAndLanuage">
+		SELECT * FROM "a_userAndLanuage" WHERE "accountNumber"='${value}'
+	</select>
+</mapper>

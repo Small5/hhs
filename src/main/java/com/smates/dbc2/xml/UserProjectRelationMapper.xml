@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.smates.dbc2.mapper.UserProjectRelationDao">
+
+	<!-- 添加一个用户的默认项目 -->
+	<insert id="addUserProjectRelation" parameterType="UserProjectRelation">
+		insert into "a_userProjectRelation" values(#{userName},#{autoProjectId})
+	</insert>
+	
+	<!-- 删除一个用户的默认项目 -->
+	<delete id="deleteUserProjectRelation" parameterType="String">
+		DELETE from "a_userProjectRelation" where "userName" = #{value}
+	</delete>
+	
+	<!-- 查找用的默认项目 -->
+	<select id="getUserProjectRelationByUserName" parameterType="String" resultType="UserProjectRelation">
+		SELECT * from "a_userProjectRelation" where "userName" = #{value}
+	</select>
+
+</mapper>
